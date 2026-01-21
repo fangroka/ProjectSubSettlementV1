@@ -784,10 +784,25 @@ const App: React.FC = () => {
 
       <footer className="fixed bottom-0 left-0 w-full bg-white/90 backdrop-blur-xl border-t border-slate-200 p-8 z-40">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <button onClick={() => setCurrentStep(prev => Math.max(1, prev - 1))} disabled={currentStep === 1} className="px-12 py-4 rounded-2xl font-black text-[11px] uppercase text-slate-400 hover:bg-slate-50 transition-all">返回上一步</button>
-          <div className="flex items-center gap-3">{[1,2,3,4].map(s => <div key={s} className={`h-2 rounded-full transition-all duration-700 ${currentStep === s ? 'w-12 bg-indigo-600' : 'w-2 bg-slate-200'}`}></div>)}</div>
-          <button onClick={() => { if (currentStep < 4) { setCurrentStep(prev => prev + 1); window.scrollTo({ top: 0, behavior: 'smooth' }); } else { handleFinalSubmit(); } }} className="px-16 py-4.5 bg-slate-900 text-white rounded-2xl font-black text-[13px] uppercase tracking-[0.2em] shadow-2xl hover:bg-slate-800">
-            {currentStep === 4 ? '生成并提交单据' : '确认并下一步'}
+          <button 
+            onClick={() => setCurrentStep(prev => Math.max(1, prev - 1))} 
+            disabled={currentStep === 1} 
+            className="px-8 md:px-12 py-5 rounded-3xl font-black text-[11px] md:text-[13px] uppercase tracking-widest text-slate-400 hover:bg-slate-50 hover:text-slate-600 disabled:opacity-0 transition-all flex items-center gap-2"
+          >
+            返回上一步
+          </button>
+          
+          <div className="hidden md:flex items-center gap-3">
+            {[1,2,3,4].map(s => <div key={s} className={`h-2 rounded-full transition-all duration-700 ${currentStep === s ? 'w-12 bg-indigo-600 shadow-[0_0_15px_rgba(79,70,229,0.3)]' : 'w-2 bg-slate-200'}`}></div>)}
+          </div>
+          
+          <button 
+            onClick={() => { if (currentStep < 4) { setCurrentStep(prev => prev + 1); window.scrollTo({ top: 0, behavior: 'smooth' }); } else { handleFinalSubmit(); } }} 
+            className="group relative px-10 md:px-20 py-5 md:py-6 bg-indigo-600 text-white rounded-[2rem] font-black text-[15px] md:text-base uppercase tracking-[0.2em] shadow-[0_20px_40px_rgba(79,70,229,0.25)] hover:shadow-[0_25px_50px_rgba(79,70,229,0.35)] hover:bg-indigo-700 active:scale-[0.98] transition-all duration-300 flex items-center gap-4 overflow-hidden"
+          >
+            <span className="relative z-10">{currentStep === 4 ? '生成并提交结算单据' : '确认并进行下一步'}</span>
+            <Icons.Check className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
           </button>
         </div>
       </footer>
